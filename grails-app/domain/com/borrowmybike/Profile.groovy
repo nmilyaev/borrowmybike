@@ -16,5 +16,6 @@ class Profile {
         about (nullable: true, maxSize: 1000)
         postcode (nullable: true)
         country (nullable: true)
+        photo (nullable: true)
     }
 }
