@@ -25,7 +25,15 @@
                 <label>Password:</label>
             </td>
             <td>
-                <g:textField name="password" value="${user?.password}"/>
+                <g:passwordField name="password"/>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <label>Confirm Password:</label>
+            </td>
+            <td>
+                <g:passwordField name="confirmPassword"/>
             </td>
         </tr>
         <tr>

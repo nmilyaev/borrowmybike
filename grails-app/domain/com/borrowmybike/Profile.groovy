@@ -2,7 +2,7 @@ package com.borrowmybike
 
 class Profile {
 
-    static belongsTo = User
+    static belongsTo = [user: User]
     String email
     String fullName
     String about
