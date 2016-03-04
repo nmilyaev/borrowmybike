@@ -1,6 +1,5 @@
 <html>
 <head>
-    <meata name="layout" content="main"/>
 </head>
 
 <body>
@@ -11,7 +10,7 @@
     </div>
 </g:hasErrors>
 
-<g:form action="create">
+<g:form action="create" method="POST">
     <table>
         <tr>
             <td><label>User name:</label>

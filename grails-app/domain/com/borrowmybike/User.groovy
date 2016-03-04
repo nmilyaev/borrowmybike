@@ -19,14 +19,13 @@ class User {
     static transients = ['confirmPassword']
 
     static constraints = {
-        // TODO: check username is unique
-        userId (size: 5..20)
-        // TODO: make sure confirmPassword validation works
-        password (size: 6..10, nullable: false, validator: { password, obj ->
-            def password2 = obj.properties['confirmPassword']
-            if (password2 == null) return true // skip matching password validation (only important when setting/resetting pass)
+        userId (size: 5..20, unique: true)
+        password (size: 6..12, nullable: false, validator: { password, obj ->
+            def password2 = obj.confirmPassword
+            password2 ? true: ['invalid.missingpasswordconfirmation']
             password2 == password ? true : ['invalid.matchingpasswords']
             })
+        confirmPassword (bindable: true, nullable: false)
         dateCreated()
         profile(nullable: true)
         offers (nullable: true)
