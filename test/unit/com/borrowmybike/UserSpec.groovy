@@ -51,23 +51,19 @@ class UserSpec extends Specification {
 
     }
 
-    def "Make sure user id is unique"() {
+    void "Make sure user id is unique"() {
         given: "A brand new user"
-        def user = new User(userId: "nestor", password: "secret", confirmPassword: "secret")
+        def validUser = new User(userId: "nestor", password: "secret", confirmPassword: "secret")
 
         when: "A user is saved"
-        user.save()
+        def saved = validUser.save(flush:true, failOnError:true)
+        mockForConstraintsTests(User, [validUser])
 
-        "Create second user with the same id and try to save it"
-        def user1 = new User(userId: "nestor", password: "secret1", confirmPassword: "secret1")
-        user1.save()
-        println(">>>>>>>>" + user.errors)
-        then: "It's saved successfully and can be found in the DB"
-        user1.errors.errorCount == 0
-        println(user1.errors)
-        user.id != null
-        User.get(user1.id).password == user1.password
+        then: "User should be unique"
+        def invalidUser = new User(userId: "nestor", password: "secret", confirmPassword: "secret")
+        !invalidUser.validate()
+//        println(">>>>> " + invalidUser.errors)
+        invalidUser.errors.errorCount == 2
     }
-
 
 }
